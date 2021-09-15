@@ -7,10 +7,12 @@ terraform-workspace:
 
 .PHONY: terraform-init
 terraform-init: export TF_API_TOKEN := $(shell pass show TF_API_TOKEN)
+terraform-init: export TF_WORKSPACE := $(ENV)
 terraform-init:
-	@terraform init
+	@terraform init -input=false
 
 .PHONY: terraform-plan
 terraform-plan: export TF_API_TOKEN := $(shell pass show TF_API_TOKEN)
-terraform-plan: terraform-workspace
+terraform-plan: export TF_WORKSPACE := $(ENV)
+terraform-plan:
 	@terraform plan
