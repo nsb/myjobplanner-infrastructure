@@ -19,3 +19,9 @@ resource "auth0_client" "myjobplanner-api" {
   token_endpoint_auth_method = "client_secret_post"
   grant_types                = ["password"]
 }
+
+resource "auth0_client_grant" "myjobplanner-api" {
+  client_id = auth0_client.myjobplanner-api.id
+  audience  = auth0_resource_server.myjobplanner-api.identifier
+  scope     = ["create:business"]
+}
