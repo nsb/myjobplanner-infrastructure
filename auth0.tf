@@ -5,7 +5,22 @@ resource "auth0_resource_server" "myjobplanner-api" {
 
   scopes {
     value       = "create:business"
-    description = "Create business"
+    description = "Create businesses"
+  }
+
+  scopes {
+    value       = "read:business"
+    description = "Read businesses"
+  }
+
+  scopes {
+    value       = "update:business"
+    description = "Update businesses"
+  }
+
+  scopes {
+    value       = "delete:business"
+    description = "Delete businesses"
   }
 
   token_lifetime                                  = 8600
@@ -23,5 +38,5 @@ resource "auth0_client" "myjobplanner-api" {
 resource "auth0_client_grant" "myjobplanner-api" {
   client_id = auth0_client.myjobplanner-api.id
   audience  = auth0_resource_server.myjobplanner-api.identifier
-  scope     = ["create:business"]
+  scope     = ["create:business", "read:business", "update:business", "delete:business"]
 }
