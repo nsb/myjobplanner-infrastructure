@@ -17,7 +17,7 @@ resource "auth0_client" "myjobplanner-api" {
   description                = "myJobPlanner Api application"
   app_type                   = "non_interactive"
   token_endpoint_auth_method = "client_secret_post"
-  grant_types                = ["password"]
+  grant_types                = ["client_credentials"]
 }
 
 resource "auth0_client_grant" "myjobplanner-api" {
