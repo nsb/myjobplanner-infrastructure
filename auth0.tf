@@ -64,7 +64,7 @@ resource "auth0_client" "myjobplanner-api-swagger-ui" {
     }
   }
   refresh_token {
-    rotation_type                = "rotating"
+    rotation_type                = "non-rotating"
     expiration_type              = "expiring"
     leeway                       = 15
     token_lifetime               = 1300000
