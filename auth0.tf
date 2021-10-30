@@ -44,7 +44,7 @@ resource "auth0_client_grant" "myjobplanner-api" {
 resource "auth0_client" "myjobplanner-api-swagger-ui" {
   name                                = "myJobPlanner Api - Swagger UI"
   description                         = "myJobPlanner Api - Swagger UI"
-  app_type                            = "regular_web"
+  app_type                            = "spa"
   custom_login_page_on                = false
   is_first_party                      = true
   is_token_endpoint_ip_header_trusted = true
