@@ -50,7 +50,7 @@ resource "auth0_client" "myjobplanner-api-swagger-ui" {
   is_token_endpoint_ip_header_trusted = true
   token_endpoint_auth_method          = "client_secret_post"
   oidc_conformant                     = true
-  callbacks                           = ["https://api.myjobplanner.com/callback", "http://localhost:3000/callback"]
+  callbacks                           = ["https://api.myjobplanner.com/callback", "http://localhost:3000/callback", "http://localhost:3000/oauth2-redirect.html"]
   allowed_origins                     = ["https://api.myjobplanner.com", "http://localhost:3000"]
   grant_types                         = ["authorization_code", "http://auth0.com/oauth/grant-type/password-realm", "implicit", "password", "refresh_token"]
   allowed_logout_urls                 = ["https://api.myjobplanner.com", "http://localhost:3000"]
