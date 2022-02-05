@@ -92,11 +92,7 @@ resource "auth0_client" "myjobplanner-app" {
   is_token_endpoint_ip_header_trusted = false
   token_endpoint_auth_method          = null
   oidc_conformant                     = true
-  callbacks                           = ["https://api.myjobplanner.com/callback", "http://localhost:3000/callback", "http://localhost:3000/oauth2-redirect.html"]
-  allowed_origins                     = ["https://api.myjobplanner.com", "http://localhost:3000"]
-  grant_types                         = ["authorization_code", "http://auth0.com/oauth/grant-type/password-realm", "implicit", "password", "refresh_token"]
-  allowed_logout_urls                 = ["https://api.myjobplanner.com", "http://localhost:3000"]
-  web_origins                         = ["https://api.myjobplanner.com", "http://localhost:3000"]
+  callbacks                           = ["exp://192.168.0.159:19000"]
   jwt_configuration {
     lifetime_in_seconds = 3000
     secret_encoded      = true
