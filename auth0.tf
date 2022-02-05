@@ -82,3 +82,45 @@ resource "auth0_client_grant" "myjobplanner-api-swagger-ui" {
   audience  = auth0_resource_server.myjobplanner-api.identifier
   scope     = ["create:business", "read:business", "update:business", "delete:business"]
 }
+
+resource "auth0_client" "myjobplanner-app" {
+  name                                = "myJobPlanner App"
+  description                         = "myJobPlanner App"
+  app_type                            = "native"
+  custom_login_page_on                = false
+  is_first_party                      = true
+  is_token_endpoint_ip_header_trusted = true
+  token_endpoint_auth_method          = null
+  oidc_conformant                     = true
+  callbacks                           = ["https://api.myjobplanner.com/callback", "http://localhost:3000/callback", "http://localhost:3000/oauth2-redirect.html"]
+  allowed_origins                     = ["https://api.myjobplanner.com", "http://localhost:3000"]
+  grant_types                         = ["authorization_code", "http://auth0.com/oauth/grant-type/password-realm", "implicit", "password", "refresh_token"]
+  allowed_logout_urls                 = ["https://api.myjobplanner.com", "http://localhost:3000"]
+  web_origins                         = ["https://api.myjobplanner.com", "http://localhost:3000"]
+  jwt_configuration {
+    lifetime_in_seconds = 3000
+    secret_encoded      = true
+    alg                 = "RS256"
+    scopes = {
+      foo = "bar"
+    }
+  }
+  refresh_token {
+    rotation_type                = "non-rotating"
+    expiration_type              = "expiring"
+    leeway                       = 15
+    token_lifetime               = 1300000
+    infinite_idle_token_lifetime = true
+    infinite_token_lifetime      = false
+    idle_token_lifetime          = 1296000
+  }
+  client_metadata = {
+    app = "mobile"
+  }
+}
+
+resource "auth0_client_grant" "myjobplanner-app" {
+  client_id = auth0_client.myjobplanner-app.id
+  audience  = auth0_resource_server.myjobplanner-api.identifier
+  scope     = ["create:business", "read:business", "update:business", "delete:business"]
+}
