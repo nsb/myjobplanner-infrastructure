@@ -120,3 +120,45 @@ resource "auth0_client_grant" "myjobplanner-app" {
   audience  = auth0_resource_server.myjobplanner-api.identifier
   scope     = ["create:business", "read:business", "update:business", "delete:business"]
 }
+
+resource "auth0_client" "myjobplanner-ui" {
+  name                                = "myJobPlanner UI"
+  description                         = "myJobPlanner UI"
+  app_type                            = "spa"
+  custom_login_page_on                = false
+  is_first_party                      = true
+  is_token_endpoint_ip_header_trusted = true
+  token_endpoint_auth_method          = "client_secret_post"
+  oidc_conformant                     = true
+  callbacks                           = ["http://localhost:3000/"]
+  allowed_origins                     = ["http://localhost:3000"]
+  grant_types                         = ["authorization_code", "http://auth0.com/oauth/grant-type/password-realm", "implicit", "password", "refresh_token"]
+  allowed_logout_urls                 = ["http://localhost:3000"]
+  web_origins                         = ["http://localhost:3000"]
+  jwt_configuration {
+    lifetime_in_seconds = 3000
+    secret_encoded      = true
+    alg                 = "RS256"
+    scopes = {
+      foo = "bar"
+    }
+  }
+  refresh_token {
+    rotation_type                = "non-rotating"
+    expiration_type              = "expiring"
+    leeway                       = 15
+    token_lifetime               = 1300000
+    infinite_idle_token_lifetime = true
+    infinite_token_lifetime      = false
+    idle_token_lifetime          = 1296000
+  }
+  client_metadata = {
+    app = "ui"
+  }
+}
+
+resource "auth0_client_grant" "myjobplanner-ui" {
+  client_id = auth0_client.myjobplanner-ui.id
+  audience  = auth0_resource_server.myjobplanner-api.identifier
+  scope     = ["create:business", "read:business", "update:business", "delete:business"]
+}
