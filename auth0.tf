@@ -127,8 +127,8 @@ resource "auth0_client" "myjobplanner-ui" {
   app_type                            = "spa"
   custom_login_page_on                = false
   is_first_party                      = true
-  is_token_endpoint_ip_header_trusted = true
-  token_endpoint_auth_method          = "client_secret_post"
+  is_token_endpoint_ip_header_trusted = false
+  token_endpoint_auth_method          = "none"
   oidc_conformant                     = true
   callbacks                           = ["http://localhost:3000/"]
   allowed_origins                     = ["http://localhost:3000"]
