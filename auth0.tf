@@ -4,23 +4,13 @@ resource "auth0_resource_server" "myjobplanner-api" {
   signing_alg = "RS256"
 
   scopes {
-    value       = "create:business"
-    description = "Create businesses"
+    value       = "read"
+    description = "Read access"
   }
 
   scopes {
-    value       = "read:business"
-    description = "Read businesses"
-  }
-
-  scopes {
-    value       = "update:business"
-    description = "Update businesses"
-  }
-
-  scopes {
-    value       = "delete:business"
-    description = "Delete businesses"
+    value       = "write"
+    description = "Write access"
   }
 
   token_lifetime                                  = 8600
@@ -38,7 +28,7 @@ resource "auth0_client" "myjobplanner-api" {
 resource "auth0_client_grant" "myjobplanner-api" {
   client_id = auth0_client.myjobplanner-api.id
   audience  = auth0_resource_server.myjobplanner-api.identifier
-  scope     = ["create:business", "read:business", "update:business", "delete:business"]
+  scope     = ["read", "write"]
 }
 
 resource "auth0_client" "myjobplanner-api-swagger-ui" {
@@ -80,7 +70,7 @@ resource "auth0_client" "myjobplanner-api-swagger-ui" {
 resource "auth0_client_grant" "myjobplanner-api-swagger-ui" {
   client_id = auth0_client.myjobplanner-api-swagger-ui.id
   audience  = auth0_resource_server.myjobplanner-api.identifier
-  scope     = ["create:business", "read:business", "update:business", "delete:business"]
+  scope     = ["read", "write"]
 }
 
 resource "auth0_client" "myjobplanner-app" {
@@ -118,7 +108,7 @@ resource "auth0_client" "myjobplanner-app" {
 resource "auth0_client_grant" "myjobplanner-app" {
   client_id = auth0_client.myjobplanner-app.id
   audience  = auth0_resource_server.myjobplanner-api.identifier
-  scope     = ["create:business", "read:business", "update:business", "delete:business"]
+  scope     = ["read", "write"]
 }
 
 resource "auth0_client" "myjobplanner-ui" {
@@ -160,5 +150,5 @@ resource "auth0_client" "myjobplanner-ui" {
 resource "auth0_client_grant" "myjobplanner-ui" {
   client_id = auth0_client.myjobplanner-ui.id
   audience  = auth0_resource_server.myjobplanner-api.identifier
-  scope     = ["create:business", "read:business", "update:business", "delete:business"]
+  scope     = ["read", "write"]
 }
